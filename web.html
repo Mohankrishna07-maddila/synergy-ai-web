@@ -1,0 +1,2276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synergy Cloud AI Solutions</title>
+    <style>
+      /* ── SYSTEM FONT STACK — no external deps ── */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+          Arial, sans-serif;
+        background: #080400;
+        color: #fff;
+        overflow-x: hidden;
+        line-height: 1.5;
+      }
+      a {
+        text-decoration: none;
+      }
+      button {
+        cursor: pointer;
+        font-family: inherit;
+        border: none;
+        background: none;
+      }
+
+      :root {
+        --amber: rgba(196, 104, 42, 1);
+        --sand-dim: rgba(245, 234, 213, 0.55);
+        --sand-faint: rgba(245, 234, 213, 0.35);
+        --border: rgba(196, 140, 60, 0.18);
+        --card: rgba(12, 6, 1, 0.98);
+        --nav-h: 62px;
+        --px: clamp(18px, 5vw, 80px);
+        --py: clamp(52px, 8vw, 96px);
+      }
+
+      /* ════════════ NAV ════════════ */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        height: var(--nav-h);
+        background: rgba(4, 2, 0, 0.9);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(14px, 4vw, 36px);
+      }
+      .logo-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-svg {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+      }
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+      .logo-name {
+        font-size: clamp(13px, 2vw, 15px);
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.3px;
+      }
+      .logo-name span {
+        color: #00b4d8;
+      }
+      .logo-sub {
+        font-size: 8px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .nav-links {
+        display: flex;
+        list-style: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .nav-links a {
+        display: block;
+        padding: 0 15px;
+        font-size: 12.5px;
+        color: rgba(255, 255, 255, 0.75);
+        height: var(--nav-h);
+        line-height: var(--nav-h);
+        white-space: nowrap;
+        transition:
+          color 0.2s,
+          background 0.2s;
+      }
+      .nav-links a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .contact-btn {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 7px 17px;
+        border-radius: 2px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.78);
+        transition: all 0.25s;
+      }
+      .contact-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: #fff;
+      }
+      /* Hamburger */
+      .ham {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        width: 34px;
+        padding: 5px;
+      }
+      .ham span {
+        display: block;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition:
+          transform 0.35s,
+          opacity 0.25s,
+          width 0.25s;
+      }
+      .ham.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .ham.open span:nth-child(2) {
+        opacity: 0;
+        width: 0;
+      }
+      .ham.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+      /* Mobile menu */
+      .mob-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        background: rgba(3, 1, 0, 0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 80px 32px 40px;
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .mob-menu.open {
+        transform: translateY(0);
+      }
+      .mob-menu a {
+        font-size: clamp(22px, 5vw, 30px);
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(245, 234, 213, 0.7);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(196, 140, 60, 0.1);
+        width: 100%;
+        text-align: center;
+        transition: color 0.2s;
+      }
+      .mob-menu a:hover {
+        color: var(--amber);
+      }
+      .mob-menu a:last-child {
+        border-bottom: none;
+      }
+      .mob-cta {
+        margin-top: 20px;
+        background: var(--amber) !important;
+        color: #180800 !important;
+        padding: 13px 40px !important;
+        border-radius: 3px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        border-bottom: none !important;
+      }
+
+      /* ════════════ HERO SLIDER ════════════ */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        min-height: 480px;
+        overflow: hidden;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1.6s ease;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+      .slide-bg {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* Slide backgrounds — desert CSS paintings */
+      .s1 .slide-bg {
+        background:
+          radial-gradient(
+            ellipse 35% 30% at 50% 15%,
+            #ffe08a 0%,
+            #f5b83a 18%,
+            rgba(220, 130, 30, 0) 56%
+          ),
+          radial-gradient(
+            ellipse 90% 48% at 50% 13%,
+            rgba(255, 175, 55, 0.15) 0%,
+            transparent 62%
+          ),
+          linear-gradient(
+            180deg,
+            #160b02 0%,
+            #361d08 8%,
+            #663818 17%,
+            #9c5c2c 26%,
+            #c47a38 34%,
+            #d08c48 42%,
+            #bc7838 50%,
+            #975c28 58%,
+            #74401c 66%,
+            #562c14 74%,
+            #764c2c 82%,
+            #9c6c3c 90%,
+            #be8a52 100%
+          );
+      }
+      .s2 .slide-bg {
+        background:
+          radial-gradient(
+            ellipse 28% 24% at 74% 19%,
+            #ff8c28 0%,
+            #de4c0c 25%,
+            rgba(180, 50, 10, 0) 60%
+          ),
+          radial-gradient(
+            ellipse 65% 40% at 74% 17%,
+            rgba(255, 115, 25, 0.13) 0%,
+            transparent 66%
+          ),
+          linear-gradient(
+            180deg,
+            #080400 0%,
+            #1c0a02 7%,
+            #461806 14%,
+            #762c0e 22%,
+            #a4441e 30%,
+            #c05c2e 38%,
+            #ac4e22 46%,
+            #843c14 55%,
+            #642c0e 64%,
+            #844a24 74%,
+            #ac6c3c 84%,
+            #c68a50 100%
+          );
+      }
+      .s3 .slide-bg {
+        background:
+          radial-gradient(
+            ellipse 30% 26% at 27% 17%,
+            #ffd05a 0%,
+            #ee9c2c 21%,
+            rgba(200, 120, 20, 0) 58%
+          ),
+          radial-gradient(
+            ellipse 74% 42% at 28% 15%,
+            rgba(255, 185, 55, 0.12) 0%,
+            transparent 66%
+          ),
+          linear-gradient(
+            180deg,
+            #0e0600 0%,
+            #281404 8%,
+            #562c14 18%,
+            #864c24 28%,
+            #b46c34 38%,
+            #c88444 46%,
+            #b67234 54%,
+            #905a24 62%,
+            #6e4414 72%,
+            #86562a 80%,
+            #a6723c 88%,
+            #be8a50 100%
+          );
+      }
+
+      /* Rock formations */
+      .rocks {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 64%;
+        pointer-events: none;
+      }
+      .rocks svg {
+        width: 100%;
+        height: 100%;
+      }
+      /* Haze */
+      .haze {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          180deg,
+          transparent 26%,
+          rgba(130, 75, 18, 0.07) 50%,
+          rgba(85, 45, 8, 0.18) 70%,
+          rgba(35, 16, 3, 0.52) 100%
+        );
+      }
+      /* Sun glow */
+      .sun {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(54px);
+        animation: sunp 9s ease-in-out infinite;
+      }
+      @keyframes sunp {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.68;
+        }
+        50% {
+          transform: scale(1.14);
+          opacity: 1;
+        }
+      }
+      .s1 .sun {
+        width: 190px;
+        height: 190px;
+        top: -3%;
+        left: calc(50% - 95px);
+        background: rgba(255, 208, 75, 0.19);
+      }
+      .s2 .sun {
+        width: 165px;
+        height: 165px;
+        top: 1%;
+        left: calc(74% - 82px);
+        background: rgba(255, 136, 36, 0.17);
+      }
+      .s3 .sun {
+        width: 175px;
+        height: 175px;
+        top: -1%;
+        left: calc(27% - 87px);
+        background: rgba(255, 186, 55, 0.17);
+      }
+      /* Particles */
+      .ptc {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .pt {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 218, 135, 0.65);
+        animation: ptf linear infinite;
+      }
+      @keyframes ptf {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.78;
+        }
+        92% {
+          opacity: 0.28;
+        }
+        100% {
+          transform: translateX(var(--px)) translateY(var(--py));
+          opacity: 0;
+        }
+      }
+
+      /* Hero text — centered over scene */
+      .hero-text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 10;
+        padding: 0 clamp(16px, 6vw, 80px);
+        pointer-events: none;
+      }
+      .headline {
+        font-size: clamp(22px, 5.2vw, 66px);
+        font-weight: 200;
+        letter-spacing: clamp(3px, 0.9vw, 7px);
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.92);
+        line-height: 1.18;
+        text-shadow: 0 2px 44px rgba(0, 0, 0, 0.72);
+        animation: hfade 1.2s ease both;
+      }
+      @keyframes hfade {
+        from {
+          opacity: 0;
+          letter-spacing: 11px;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          letter-spacing: clamp(3px, 0.9vw, 7px);
+          transform: translateY(0);
+        }
+      }
+      .typing {
+        margin-top: clamp(9px, 1.8vw, 17px);
+        font-size: clamp(10px, 1.5vw, 15px);
+        font-weight: 300;
+        letter-spacing: clamp(2px, 0.7vw, 4px);
+        text-transform: uppercase;
+        color: rgba(255, 216, 154, 0.7);
+        min-height: 22px;
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.82);
+      }
+      .cur {
+        display: inline-block;
+        width: 1px;
+        height: 0.88em;
+        background: rgba(255, 196, 95, 0.8);
+        vertical-align: middle;
+        margin-left: 3px;
+        animation: blink 0.75s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Bottom bar */
+      .hero-btm {
+        position: absolute;
+        bottom: clamp(18px, 3.5vw, 42px);
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(14px, 4vw, 48px);
+      }
+      .btm-l {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .pause-btn {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.26);
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.3s;
+        touch-action: manipulation;
+      }
+      .pause-btn:hover {
+        border-color: rgba(255, 255, 255, 0.62);
+      }
+      .pbar {
+        display: flex;
+        gap: 3px;
+      }
+      .pb {
+        width: 3px;
+        height: 12px;
+        background: #fff;
+        border-radius: 1px;
+      }
+      .learn-btn {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(18, 8, 2, 0.68);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: clamp(8px, 1.8vw, 12px) clamp(16px, 3vw, 28px);
+        border-radius: 40px;
+        font-size: clamp(11px, 1.3vw, 13px);
+        font-weight: 400;
+        letter-spacing: 1px;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s;
+        white-space: nowrap;
+        touch-action: manipulation;
+      }
+      .learn-btn:hover {
+        background: rgba(196, 104, 42, 0.62);
+        border-color: rgba(196, 104, 42, 0.88);
+        transform: translateY(-2px);
+      }
+      .dots {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        background: transparent;
+        transition: all 0.35s;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      .dot.active {
+        background: rgba(255, 255, 255, 0.84);
+        border-color: transparent;
+        width: 18px;
+        border-radius: 3px;
+      }
+
+      /* ════════════ TICKER ════════════ */
+      .ticker {
+        overflow: hidden;
+        background: rgba(6, 3, 0, 0.97);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+      }
+      .tick-track {
+        display: flex;
+        gap: 68px;
+        width: max-content;
+        animation: tickgo 28s linear infinite;
+        white-space: nowrap;
+      }
+      .tick-track:hover {
+        animation-play-state: paused;
+      }
+      @keyframes tickgo {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .tick {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(245, 234, 213, 0.42);
+      }
+      .tsep {
+        color: rgba(196, 104, 42, 0.62);
+      }
+
+      /* ════════════ STATS ════════════ */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: rgba(5, 2, 0, 0.98);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stat {
+        padding: clamp(26px, 4.5vw, 46px) clamp(14px, 2.5vw, 30px);
+        text-align: center;
+        border-right: 1px solid var(--border);
+        transition: background 0.3s;
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat:hover {
+        background: rgba(196, 104, 42, 0.05);
+      }
+      .sn {
+        font-size: clamp(34px, 5.5vw, 54px);
+        font-weight: 200;
+        color: rgba(196, 104, 42, 0.88);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .sl {
+        font-size: clamp(8px, 1.1vw, 10px);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(245, 234, 213, 0.36);
+      }
+
+      /* ════════════ SECTIONS ════════════ */
+      .sec {
+        padding: var(--py) var(--px);
+        background: rgba(7, 3, 0, 0.98);
+        border-top: 1px solid var(--border);
+      }
+      .sec.alt {
+        background: rgba(13, 7, 1, 0.98);
+      }
+      .sec-lbl {
+        font-size: 10px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: rgba(196, 104, 42, 0.86);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .sec-lbl::before {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: rgba(196, 104, 42, 0.68);
+        flex-shrink: 0;
+      }
+      .sec-h {
+        font-size: clamp(24px, 3.8vw, 50px);
+        font-weight: 200;
+        letter-spacing: 2px;
+        line-height: 1.15;
+        text-transform: uppercase;
+        color: #f3e8d2;
+        margin-bottom: 13px;
+      }
+      .sec-p {
+        font-size: clamp(13px, 1.3vw, 15px);
+        color: var(--sand-dim);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 620px;
+        margin-bottom: clamp(34px, 5vw, 54px);
+      }
+
+      /* ════════════ SOLUTIONS ════════════ */
+      .sol-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .sol-card {
+        background: var(--card);
+        padding: clamp(26px, 3.8vw, 42px) clamp(18px, 2.8vw, 30px);
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+      .sol-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          rgba(196, 104, 42, 0.88),
+          rgba(196, 158, 56, 0.38)
+        );
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s ease;
+      }
+      .sol-card:hover {
+        background: rgba(22, 11, 2, 0.99);
+      }
+      .sol-card:hover::after {
+        transform: scaleX(1);
+      }
+      .sc-n {
+        font-size: clamp(34px, 4.8vw, 46px);
+        font-weight: 200;
+        color: rgba(196, 104, 42, 0.11);
+        line-height: 1;
+        margin-bottom: 14px;
+      }
+      .sc-tag {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(196, 104, 42, 0.78);
+        margin-bottom: 8px;
+      }
+      .sc-t {
+        font-size: clamp(16px, 1.9vw, 21px);
+        font-weight: 300;
+        margin-bottom: 11px;
+        color: #eedd c0;
+        line-height: 1.25;
+        color: #eeddbc;
+      }
+      .sc-d {
+        font-size: 13px;
+        color: var(--sand-dim);
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+      .sc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .sc-item {
+        font-size: 12px;
+        color: rgba(245, 218, 174, 0.48);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.5;
+      }
+      .sc-item::before {
+        content: "—";
+        color: rgba(196, 104, 42, 0.52);
+        flex-shrink: 0;
+      }
+
+      /* ════════════ QUOTE ════════════ */
+      .quote-band {
+        padding: clamp(52px, 7.5vw, 78px) var(--px);
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(78, 42, 10, 0.98) 0%,
+          rgba(48, 26, 5, 0.99) 50%,
+          rgba(32, 16, 2, 0.99) 100%
+        );
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+        position: relative;
+      }
+      .quote-band::before {
+        content: '"';
+        position: absolute;
+        top: -58px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: clamp(160px, 24vw, 380px);
+        font-weight: 200;
+        color: rgba(196, 104, 42, 0.04);
+        line-height: 1;
+        pointer-events: none;
+      }
+      .q-t {
+        font-size: clamp(17px, 2.8vw, 40px);
+        font-weight: 200;
+        font-style: italic;
+        letter-spacing: 0.4px;
+        color: #eeddbc;
+        max-width: 840px;
+        margin: 0 auto 18px;
+        line-height: 1.42;
+      }
+      .q-t em {
+        font-style: normal;
+        color: rgba(196, 138, 52, 0.86);
+      }
+      .q-s {
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(245, 234, 213, 0.3);
+      }
+
+      /* ════════════ INTERNSHIP ════════════ */
+      .int-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(30px, 5vw, 78px);
+        align-items: start;
+      }
+      .int-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-bottom: 26px;
+      }
+      .int-pill {
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        padding: 5px 13px;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--sand-faint);
+      }
+      .int-pill.hi {
+        border-color: rgba(196, 104, 42, 0.52);
+        color: rgba(196, 104, 42, 0.86);
+      }
+      .int-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .int-cell {
+        background: var(--card);
+        padding: clamp(16px, 2.4vw, 23px) clamp(12px, 1.8vw, 17px);
+        transition: background 0.3s;
+      }
+      .int-cell:hover {
+        background: rgba(26, 12, 2, 0.99);
+      }
+      .ic-ico {
+        font-size: clamp(17px, 2.4vw, 21px);
+        margin-bottom: 9px;
+        display: block;
+      }
+      .ic-t {
+        font-size: clamp(10px, 1.2vw, 12px);
+        font-weight: 500;
+        color: #e6d2ac;
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+      .ic-d {
+        font-size: 10px;
+        color: rgba(245, 234, 213, 0.35);
+        line-height: 1.55;
+      }
+
+      /* ════════════ TIMELINE ════════════ */
+      .timeline {
+        position: relative;
+        padding-left: clamp(22px, 3.8vw, 34px);
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          rgba(196, 104, 42, 0.68),
+          rgba(196, 104, 42, 0.04)
+        );
+      }
+      .wk {
+        position: relative;
+        margin-bottom: clamp(26px, 3.8vw, 38px);
+        opacity: 0;
+        transform: translateX(-14px);
+        transition: all 0.7s ease;
+      }
+      .wk.vis {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .wk-dot {
+        position: absolute;
+        left: clamp(-30px, -3.8vw, -42px);
+        top: 4px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(196, 104, 42, 0.76);
+        background: #060200;
+        box-shadow: 0 0 8px rgba(196, 104, 42, 0.26);
+      }
+      .wk-n {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(196, 104, 42, 0.75);
+        margin-bottom: 5px;
+      }
+      .wk-t {
+        font-size: clamp(14px, 1.9vw, 17px);
+        font-weight: 300;
+        margin-bottom: 9px;
+        color: #e6d2ac;
+      }
+      .wk-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .wk-tag {
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 2px;
+        background: rgba(196, 104, 42, 0.07);
+        border: 1px solid var(--border);
+        color: var(--sand-dim);
+      }
+
+      /* ════════════ TECH ════════════ */
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .tc {
+        background: rgba(9, 4, 0, 0.98);
+        padding: clamp(19px, 2.8vw, 26px) clamp(14px, 2vw, 21px);
+        transition: background 0.3s;
+      }
+      .tc:hover {
+        background: rgba(24, 12, 3, 0.99);
+      }
+      .tc-c {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(196, 104, 42, 0.65);
+        margin-bottom: 7px;
+      }
+      .tc-v {
+        font-size: clamp(12px, 1.35vw, 14px);
+        font-weight: 300;
+        color: #dac49c;
+        line-height: 1.5;
+      }
+
+      /* ════════════ CERTS ════════════ */
+      .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .cert-card {
+        background: var(--card);
+        padding: clamp(22px, 3.2vw, 34px) clamp(18px, 2.8vw, 30px);
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        transition: background 0.3s;
+      }
+      .cert-card:hover {
+        background: rgba(20, 10, 1, 0.99);
+      }
+      .c-ico {
+        font-size: clamp(20px, 2.8vw, 26px);
+        flex-shrink: 0;
+      }
+      .c-t {
+        font-size: clamp(14px, 1.7vw, 16px);
+        font-weight: 300;
+        color: #e6d2ac;
+        margin-bottom: 7px;
+      }
+      .c-d {
+        font-size: 13px;
+        color: var(--sand-dim);
+        line-height: 1.75;
+      }
+
+      /* ════════════ FAQ ════════════ */
+      .faq-list {
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--border);
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-btn {
+        width: 100%;
+        background: transparent;
+        text-align: left;
+        padding: clamp(16px, 2.4vw, 21px) clamp(14px, 2.8vw, 26px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: clamp(13px, 1.5vw, 15px);
+        font-weight: 300;
+        color: #d8c49c;
+        transition: background 0.3s;
+        touch-action: manipulation;
+      }
+      .faq-btn:hover {
+        background: rgba(196, 104, 42, 0.04);
+      }
+      .faq-ico {
+        color: rgba(196, 104, 42, 0.78);
+        font-size: 17px;
+        transition: transform 0.4s;
+        flex-shrink: 0;
+      }
+      .faq-btn.open .faq-ico {
+        transform: rotate(45deg);
+      }
+      .faq-ans {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 clamp(14px, 2.8vw, 26px);
+        font-size: 13px;
+        color: var(--sand-dim);
+        line-height: 1.8;
+        transition:
+          max-height 0.5s ease,
+          padding 0.4s;
+      }
+      .faq-ans.open {
+        max-height: 180px;
+        padding: 0 clamp(14px, 2.8vw, 26px) 20px;
+      }
+
+      /* ════════════ CTA ════════════ */
+      .cta {
+        padding: clamp(60px, 9vw, 108px) var(--px);
+        text-align: center;
+        background: rgba(5, 2, 0, 0.98);
+        border-top: 1px solid var(--border);
+      }
+      .cta h2 {
+        font-size: clamp(24px, 4.2vw, 54px);
+        font-weight: 200;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #eedd c0;
+        margin-bottom: 15px;
+        line-height: 1.15;
+        color: #eeddc0;
+      }
+      .cta p {
+        font-size: clamp(13px, 1.35vw, 15px);
+        color: var(--sand-dim);
+        max-width: 460px;
+        margin: 0 auto clamp(30px, 4.5vw, 46px);
+        line-height: 1.85;
+        font-weight: 300;
+      }
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--amber);
+        color: #180800;
+        padding: clamp(11px, 1.8vw, 15px) clamp(30px, 4.5vw, 50px);
+        border-radius: 3px;
+        font-size: clamp(11px, 1.2vw, 13px);
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        touch-action: manipulation;
+        box-shadow: 0 6px 26px rgba(196, 104, 42, 0.32);
+      }
+      .cta-btn:hover {
+        background: #d0741e;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 34px rgba(196, 104, 42, 0.48);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: clamp(22px, 3.5vw, 34px);
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 10px 17px;
+        font-size: clamp(11px, 1.2vw, 13px);
+        color: var(--sand-faint);
+        transition: all 0.3s;
+        background: rgba(10, 4, 0, 0.8);
+        touch-action: manipulation;
+      }
+      .chip:hover {
+        border-color: rgba(196, 104, 42, 0.62);
+        color: rgba(245, 218, 154, 0.86);
+      }
+
+      /* ════════════ FOOTER ════════════ */
+      footer {
+        background: rgba(3, 1, 0, 0.99);
+        border-top: 1px solid var(--border);
+        padding: clamp(38px, 5.5vw, 50px) var(--px) clamp(18px, 2.8vw, 26px);
+      }
+      .foot-top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: clamp(26px, 3.8vw, 54px);
+        margin-bottom: clamp(26px, 3.8vw, 34px);
+      }
+      .foot-tag {
+        font-size: 13px;
+        color: var(--sand-faint);
+        line-height: 1.85;
+        max-width: 235px;
+        margin-top: 13px;
+        font-weight: 300;
+      }
+      .foot-col h4 {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(196, 104, 42, 0.62);
+        margin-bottom: 15px;
+      }
+      .foot-col a {
+        display: block;
+        font-size: 13px;
+        color: rgba(245, 234, 213, 0.32);
+        margin-bottom: 9px;
+        transition: color 0.3s;
+      }
+      .foot-col a:hover {
+        color: #d8c49c;
+      }
+      .foot-bot {
+        border-top: 1px solid var(--border);
+        padding-top: 17px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 11px;
+        color: rgba(196, 138, 52, 0.28);
+      }
+
+      /* ════════════ REVEAL ════════════ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.vis {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .d1 {
+        transition-delay: 0.1s;
+      }
+      .d2 {
+        transition-delay: 0.2s;
+      }
+      .d3 {
+        transition-delay: 0.3s;
+      }
+
+      /* ════════════ TABLET ≤900 ════════════ */
+      @media (max-width: 900px) {
+        .nav-links,
+        .nav-right {
+          display: none;
+        }
+        .ham {
+          display: flex;
+        }
+        .mob-menu {
+          display: flex;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat:nth-child(2) {
+          border-right: none;
+        }
+        .stat:nth-child(3) {
+          border-top: 1px solid var(--border);
+        }
+        .stat:nth-child(4) {
+          border-top: 1px solid var(--border);
+          border-right: none;
+        }
+        .sol-grid {
+          grid-template-columns: 1fr;
+        }
+        .sol-card {
+          border-bottom: 1px solid var(--border);
+        }
+        .sol-card:last-child {
+          border-bottom: none;
+        }
+        .int-wrap {
+          grid-template-columns: 1fr;
+        }
+        .tech-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cert-grid {
+          grid-template-columns: 1fr;
+        }
+        .foot-top {
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+        }
+        .foot-top > div:first-child {
+          grid-column: 1/-1;
+        }
+      }
+      /* ════════════ MOBILE ≤600 ════════════ */
+      @media (max-width: 600px) {
+        :root {
+          --nav-h: 56px;
+        }
+        .logo-text {
+          display: none;
+        }
+        .logo-svg {
+          width: 36px;
+          height: 36px;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .int-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .tech-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cert-grid {
+          grid-template-columns: 1fr;
+        }
+        .foot-top {
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+        .foot-bot {
+          flex-direction: column;
+          gap: 6px;
+          text-align: center;
+        }
+        .chips {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .chip {
+          justify-content: center;
+          text-align: center;
+          word-break: break-word;
+        }
+        .timeline {
+          padding-left: 20px;
+        }
+        .wk-dot {
+          left: -28px;
+        }
+        .quote-band::before {
+          display: none;
+        }
+      }
+      @media (max-width: 400px) {
+        .int-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .tech-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (hover: none) {
+        .sol-card:hover,
+        .tc:hover,
+        .cert-card:hover,
+        .int-cell:hover,
+        .stat:hover {
+          background: initial;
+        }
+        .learn-btn:hover,
+        .cta-btn:hover {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="logo-box">
+        <svg class="logo-svg" viewBox="0 0 46 46" fill="none">
+          <path
+            d="M33 28C37.4 28 41 24.4 41 20C41 15.6 37.4 12 33 12C32.4 12 31.8 12.1 31.2 12.3C30 9.1 27 7 23.5 7C18.5 7 14.5 11 14.5 16C14.5 16.2 14.5 16.4 14.6 16.6C11.8 17.3 10 19.9 10 22.9C10 26.3 12.7 29 16.1 29L33 29Z"
+            fill="none"
+            stroke="#00b4d8"
+            stroke-width="2.2"
+            stroke-linejoin="round"
+          />
+          <circle cx="19" cy="19" r="1.8" fill="#8a7060" />
+          <path
+            d="M16.5 29L16.5 24.5C16.5 23.2 17.4 22.5 19 22.5C20.6 22.5 21.5 23.2 21.5 24.5L21.5 29"
+            stroke="#8a7060"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+          <circle cx="23.5" cy="17.8" r="2.1" fill="#8a7060" />
+          <path
+            d="M21 29L21 24C21 22.6 22 21.8 23.5 21.8C25 21.8 26 22.6 26 24L26 29"
+            stroke="#8a7060"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+          <circle cx="28" cy="19" r="1.8" fill="#8a7060" />
+          <path
+            d="M25.5 29L25.5 24.5C25.5 23.2 26.4 22.5 28 22.5C29.6 22.5 30.5 23.2 30.5 24.5L30.5 29"
+            stroke="#8a7060"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">Synergy <span>Cloud</span></span>
+          <span class="logo-sub">AI Solutions</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#solutions">Solutions</a></li>
+        <li><a href="#internship">Internship</a></li>
+        <li><a href="#curriculum">Curriculum</a></li>
+        <li><a href="#faq">FAQs</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="#contact" class="contact-btn">Contact Us</a>
+      </div>
+      <button class="ham" id="ham" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mob-menu" id="mob">
+      <a href="#solutions" onclick="closeMenu()">Solutions</a>
+      <a href="#internship" onclick="closeMenu()">Internship</a>
+      <a href="#curriculum" onclick="closeMenu()">Curriculum</a>
+      <a href="#faq" onclick="closeMenu()">FAQs</a>
+      <a href="#contact" onclick="closeMenu()" class="mob-cta">Contact Us</a>
+    </div>
+
+    <!-- HERO SLIDER -->
+    <div class="hero" id="slider">
+      <!-- Slide 1 -->
+      <div class="slide active s1">
+        <div class="slide-bg"></div>
+        <div class="sun"></div>
+        <div class="rocks">
+          <svg viewBox="0 0 1440 560" preserveAspectRatio="none">
+            <path
+              d="M0,375 L68,252 L152,276 L248,172 L358,202 L452,132 L562,106 L668,142 L772,90 L872,115 L962,76 L1052,100 L1148,65 L1238,92 L1338,122 L1440,130 L1440,560 L0,560Z"
+              fill="rgba(33,16,4,0.64)"
+            />
+            <path
+              d="M0,440 L54,366 L112,392 L198,322 L282,352 L372,302 L462,329 L552,282 L642,312 L738,275 L838,305 L928,267 L1018,292 L1112,272 L1202,302 L1292,285 L1382,315 L1440,305 L1440,560 L0,560Z"
+              fill="rgba(53,28,9,0.82)"
+            />
+            <path
+              d="M248,172 L292,212 L255,232 L220,202Z"
+              fill="rgba(18,8,1,0.64)"
+            />
+            <path
+              d="M772,90 L815,132 L765,148 L745,106Z"
+              fill="rgba(18,8,1,0.58)"
+            />
+            <path
+              d="M1148,65 L1185,105 L1140,118 L1126,80Z"
+              fill="rgba(18,8,1,0.54)"
+            />
+            <path
+              d="M0,495 Q138,459 298,479 Q458,499 618,465 Q778,431 938,465 Q1098,499 1258,469 Q1358,455 1440,465 L1440,560 L0,560Z"
+              fill="rgba(78,46,16,0.92)"
+            />
+            <path
+              d="M0,535 Q238,518 498,528 Q758,538 998,522 Q1198,509 1440,527 L1440,560 L0,560Z"
+              fill="rgba(108,66,26,0.95)"
+            />
+            <ellipse
+              cx="298"
+              cy="548"
+              rx="178"
+              ry="6"
+              fill="rgba(138,88,38,0.44)"
+            />
+            <ellipse
+              cx="848"
+              cy="543"
+              rx="238"
+              ry="5"
+              fill="rgba(138,88,38,0.39)"
+            />
+            <ellipse
+              cx="1248"
+              cy="546"
+              rx="158"
+              ry="5"
+              fill="rgba(138,88,38,0.37)"
+            />
+          </svg>
+        </div>
+        <div class="haze"></div>
+        <div class="ptc" id="ptc"></div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide s2">
+        <div class="slide-bg"></div>
+        <div class="sun"></div>
+        <div class="rocks">
+          <svg viewBox="0 0 1440 560" preserveAspectRatio="none">
+            <path
+              d="M0,398 L88,265 L178,289 L272,182 L388,212 L478,145 L588,118 L692,155 L798,102 L898,127 L992,86 L1082,110 L1182,72 L1275,98 L1365,129 L1440,115 L1440,560 L0,560Z"
+              fill="rgba(28,11,2,0.69)"
+            />
+            <path
+              d="M0,458 L58,382 L122,405 L212,335 L298,362 L390,312 L478,339 L568,292 L662,322 L758,285 L858,315 L952,277 L1048,302 L1142,282 L1235,312 L1325,295 L1438,315 L1440,560 L0,560Z"
+              fill="rgba(46,20,5,0.87)"
+            />
+            <path
+              d="M0,502 Q158,469 338,487 Q518,505 698,472 Q878,439 1058,475 Q1218,505 1378,479 L1440,472 L1440,560 L0,560Z"
+              fill="rgba(73,38,10,0.94)"
+            />
+            <path
+              d="M0,539 Q298,525 578,535 Q858,545 1098,529 Q1298,517 1440,532 L1440,560 L0,560Z"
+              fill="rgba(103,60,20,0.96)"
+            />
+          </svg>
+        </div>
+        <div class="haze"></div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide s3">
+        <div class="slide-bg"></div>
+        <div class="sun"></div>
+        <div class="rocks">
+          <svg viewBox="0 0 1440 560" preserveAspectRatio="none">
+            <path
+              d="M0,362 L78,239 L165,262 L259,155 L375,185 L469,115 L579,89 L685,125 L789,75 L889,99 L985,59 L1075,85 L1169,52 L1262,77 L1355,109 L1440,95 L1440,560 L0,560Z"
+              fill="rgba(26,12,2,0.67)"
+            />
+            <path
+              d="M0,449 L62,375 L125,399 L215,327 L302,357 L395,305 L485,332 L575,285 L665,315 L759,277 L855,307 L949,269 L1042,295 L1135,275 L1228,305 L1319,289 L1412,317 L1440,309 L1440,560 L0,560Z"
+              fill="rgba(48,24,7,0.84)"
+            />
+            <path
+              d="M0,499 Q128,465 288,483 Q448,501 622,467 Q796,433 972,469 Q1125,501 1288,471 Q1378,457 1440,469 L1440,560 L0,560Z"
+              fill="rgba(76,44,14,0.93)"
+            />
+            <path
+              d="M0,537 Q248,522 518,531 Q788,540 1048,523 Q1248,511 1440,525 L1440,560 L0,560Z"
+              fill="rgba(106,64,24,0.96)"
+            />
+          </svg>
+        </div>
+        <div class="haze"></div>
+      </div>
+
+      <!-- SHARED overlay: headline + typing — sits above ALL slides, z-index:10 -->
+      <div class="hero-text" id="heroText">
+        <div class="headline" id="heroHeadline"></div>
+        <div class="typing">
+          <span id="typed"></span><span class="cur"></span>
+        </div>
+      </div>
+
+      <!-- Bottom controls -->
+      <div class="hero-btm">
+        <div class="btm-l">
+          <button
+            class="pause-btn"
+            id="pauseBtn"
+            onclick="togglePause()"
+            aria-label="Pause/Play"
+          >
+            <div class="pbar" id="picon">
+              <div class="pb"></div>
+              <div class="pb"></div>
+            </div>
+          </button>
+          <a href="#solutions" class="learn-btn">Learn more</a>
+        </div>
+        <div class="dots" id="dots">
+          <div class="dot active" onclick="goSlide(0)"></div>
+          <div class="dot" onclick="goSlide(1)"></div>
+          <div class="dot" onclick="goSlide(2)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="tick-track">
+        <span class="tick">BFSI AI Solutions <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Healthcare Intelligence <span class="tsep">✦</span></span
+        >
+        <span class="tick"
+          >Enterprise AI Systems <span class="tsep">✦</span></span
+        >
+        <span class="tick">RAG Integration <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Hallucination Control <span class="tsep">✦</span></span
+        >
+        <span class="tick">Prompt Engineering <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Legacy Doc Conversion <span class="tsep">✦</span></span
+        >
+        <span class="tick"
+          >6-Week Paid Internship <span class="tsep">✦</span></span
+        >
+        <span class="tick">BFSI AI Solutions <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Healthcare Intelligence <span class="tsep">✦</span></span
+        >
+        <span class="tick"
+          >Enterprise AI Systems <span class="tsep">✦</span></span
+        >
+        <span class="tick">RAG Integration <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Hallucination Control <span class="tsep">✦</span></span
+        >
+        <span class="tick">Prompt Engineering <span class="tsep">✦</span></span>
+        <span class="tick"
+          >Legacy Doc Conversion <span class="tsep">✦</span></span
+        >
+        <span class="tick"
+          >6-Week Paid Internship <span class="tsep">✦</span></span
+        >
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats reveal">
+      <div class="stat">
+        <div class="sn">3</div>
+        <div class="sl">Industry Verticals</div>
+      </div>
+      <div class="stat">
+        <div class="sn">6</div>
+        <div class="sl">Week Internship</div>
+      </div>
+      <div class="stat">
+        <div class="sn">9</div>
+        <div class="sl">Project Deliverables</div>
+      </div>
+      <div class="stat">
+        <div class="sn">0</div>
+        <div class="sl">Tutorial Watching</div>
+      </div>
+    </div>
+
+    <!-- SOLUTIONS -->
+    <div class="sec alt" id="solutions">
+      <div class="sec-lbl">What We Build</div>
+      <h2 class="sec-h reveal">Solutions for Real Industries</h2>
+      <p class="sec-p reveal d1">
+        Purpose-built, production-hardened AI systems designed to endure across
+        Banking, Healthcare and Enterprise ecosystems.
+      </p>
+      <div class="sol-grid reveal d2">
+        <div class="sol-card">
+          <div class="sc-n">01</div>
+          <div class="sc-tag">Banking · Finance · Insurance</div>
+          <div class="sc-t">BFSI Intelligent Systems</div>
+          <div class="sc-d">
+            Navigating the complex regulatory terrain of financial services with
+            AI that automates, detects, and decides — at scale.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Loan &amp; KYC document processing</div>
+            <div class="sc-item">
+              Fraud detection &amp; anomaly identification
+            </div>
+            <div class="sc-item">RBI / SEBI compliance automation</div>
+            <div class="sc-item">Insurance claims processing AI</div>
+            <div class="sc-item">
+              Customer intelligence &amp; churn prediction
+            </div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sc-n">02</div>
+          <div class="sc-tag">Clinical · Medical · Records</div>
+          <div class="sc-t">Healthcare AI Systems</div>
+          <div class="sc-d">
+            Precision-grade AI for healthcare — where every output must be
+            grounded in evidence and free of hallucination.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Clinical documentation structuring</div>
+            <div class="sc-item">
+              Medical record extraction &amp; ICD coding
+            </div>
+            <div class="sc-item">Drug interaction recommendation engines</div>
+            <div class="sc-item">Patient journey &amp; care pathway AI</div>
+            <div class="sc-item">Radiology report intelligence</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sc-n">03</div>
+          <div class="sc-tag">Enterprise · Cloud · AI</div>
+          <div class="sc-t">Enterprise AI Architecture</div>
+          <div class="sc-d">
+            Production-grade AI architectures for enterprises — scalable,
+            deployable, and cloud-native.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Legacy doc to Agile user story conversion</div>
+            <div class="sc-item">RAG-powered enterprise knowledge systems</div>
+            <div class="sc-item">JSON schema-enforced LLM pipelines</div>
+            <div class="sc-item">Hallucination-controlled AI deployment</div>
+            <div class="sc-item">API-wrapped containerised delivery</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-band reveal">
+      <p class="q-t">
+        "The desert does not yield to shortcuts. Neither does
+        <em>enterprise AI</em>. We build systems that <em>endure.</em>"
+      </p>
+      <div class="q-s">— SynergyCloudAISolutions · Madhapur, Hyderabad</div>
+    </div>
+
+    <!-- INTERNSHIP -->
+    <div class="sec" id="internship">
+      <div class="sec-lbl">Internship Program</div>
+      <div class="int-wrap">
+        <div>
+          <h2 class="sec-h reveal">
+            Enterprise AI<br />Development<br />Internship
+          </h2>
+          <div class="int-pills reveal d1">
+            <span class="int-pill hi">6 Weeks</span>
+            <span class="int-pill hi">Paid Program</span>
+            <span class="int-pill">Online / Hybrid / Onsite</span>
+            <span class="int-pill">No Prior AI Needed</span>
+            <span class="int-pill">9 Deliverables</span>
+          </div>
+          <p class="sec-p reveal d2" style="margin-bottom: 26px">
+            Build a production-grade AI system that converts 500+ pages of
+            legacy documentation into structured Agile user stories — with
+            hallucination control, RAG integration, and full deployment. Not a
+            tutorial. Not a clone. The real thing.
+          </p>
+          <div class="reveal d3">
+            <a href="mailto:AskHR@SynergyCloudAISolutions.com" class="cta-btn"
+              >Apply Now</a
+            >
+          </div>
+        </div>
+        <div class="int-grid reveal d1">
+          <div class="int-cell">
+            <span class="ic-ico">📄</span>
+            <div class="ic-t">Document Processing</div>
+            <div class="ic-d">PDFs, Word docs &amp; raw text</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🔗</span>
+            <div class="ic-t">Data Pipeline</div>
+            <div class="ic-d">Semantic-aware chunking</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🧠</span>
+            <div class="ic-t">Prompt System</div>
+            <div class="ic-d">Deterministic LLM outputs</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">📐</span>
+            <div class="ic-t">JSON Schema</div>
+            <div class="ic-d">Pydantic-validated responses</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🛡️</span>
+            <div class="ic-t">Hallucination Control</div>
+            <div class="ic-d">Source-grounded outputs</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🔍</span>
+            <div class="ic-t">RAG Integration</div>
+            <div class="ic-d">ChromaDB · Pinecone · FAISS</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">✅</span>
+            <div class="ic-t">Validation Layer</div>
+            <div class="ic-d">Multi-pass checks</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🔄</span>
+            <div class="ic-t">Feedback Loop</div>
+            <div class="ic-d">Human-in-the-loop</div>
+          </div>
+          <div class="int-cell">
+            <span class="ic-ico">🚀</span>
+            <div class="ic-t">Deployment Ready</div>
+            <div class="ic-d">Docker · FastAPI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CURRICULUM -->
+    <div class="sec alt" id="curriculum">
+      <div class="sec-lbl">Week-by-Week</div>
+      <h2 class="sec-h reveal">6 Weeks. Clear Milestones.</h2>
+      <p class="sec-p reveal d1">
+        Every week delivers specific outcomes, committed code, and measurable
+        progress.
+      </p>
+      <div class="timeline">
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 01</div>
+          <div class="wk-t">Problem Understanding &amp; Architecture</div>
+          <div class="wk-tags">
+            <span class="wk-tag">Enterprise Doc Challenges</span
+            ><span class="wk-tag">Agile Methodology</span
+            ><span class="wk-tag">AI Architecture Patterns</span
+            ><span class="wk-tag">Dev Environment Setup</span>
+          </div>
+        </div>
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 02</div>
+          <div class="wk-t">Document Processing</div>
+          <div class="wk-tags">
+            <span class="wk-tag">PyMuPDF &amp; pdfplumber</span
+            ><span class="wk-tag">Intelligent Chunking</span
+            ><span class="wk-tag">Data Cleaning</span
+            ><span class="wk-tag">Structured JSON Storage</span>
+          </div>
+        </div>
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 03</div>
+          <div class="wk-t">Prompt Engineering &amp; Structured Output</div>
+          <div class="wk-tags">
+            <span class="wk-tag">LLM Fundamentals</span
+            ><span class="wk-tag">Few-Shot Prompting</span
+            ><span class="wk-tag">JSON Schema</span
+            ><span class="wk-tag">Deterministic Generation</span>
+          </div>
+        </div>
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 04</div>
+          <div class="wk-t">Hallucination Control &amp; Validation</div>
+          <div class="wk-tags">
+            <span class="wk-tag">RAG Implementation</span
+            ><span class="wk-tag">Context Grounding</span
+            ><span class="wk-tag">No-Invention Constraints</span
+            ><span class="wk-tag">Output Validation</span>
+          </div>
+        </div>
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 05</div>
+          <div class="wk-t">Feedback Loop &amp; Refinement</div>
+          <div class="wk-tags">
+            <span class="wk-tag">Human-in-the-loop</span
+            ><span class="wk-tag">Iterative Improvement</span
+            ><span class="wk-tag">Quality Metrics</span>
+          </div>
+        </div>
+        <div class="wk">
+          <div class="wk-dot"></div>
+          <div class="wk-n">Week 06</div>
+          <div class="wk-t">Integration &amp; Deployment</div>
+          <div class="wk-tags">
+            <span class="wk-tag">End-to-End Integration</span
+            ><span class="wk-tag">FastAPI / Flask</span
+            ><span class="wk-tag">Docker Deployment</span
+            ><span class="wk-tag">Final Demo to Panel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECH -->
+    <div class="sec">
+      <div class="sec-lbl">Technologies &amp; Tools</div>
+      <h2 class="sec-h reveal">Production-Grade Stack</h2>
+      <div class="tech-grid reveal d1">
+        <div class="tc">
+          <div class="tc-c">Language</div>
+          <div class="tc-v">Python / C#</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">LLM Integration</div>
+          <div class="tc-v">Ollama · Azure OpenAI · AWS Bedrock</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">Vector Databases</div>
+          <div class="tc-v">ChromaDB · Pinecone · FAISS</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">Schema Validation</div>
+          <div class="tc-v">Pydantic · jsonschema</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">REST APIs</div>
+          <div class="tc-v">FastAPI / Flask</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">Deployment</div>
+          <div class="tc-v">Docker · Cloud Architecture</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">Version Control</div>
+          <div class="tc-v">Git &amp; GitHub</div>
+        </div>
+        <div class="tc">
+          <div class="tc-c">Document Parsing</div>
+          <div class="tc-v">PyMuPDF · pdfplumber</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTS -->
+    <div class="sec alt">
+      <div class="sec-lbl">Completion Benefits</div>
+      <h2 class="sec-h reveal">What You Earn</h2>
+      <div class="cert-grid reveal d1">
+        <div class="cert-card">
+          <div class="c-ico">🏅</div>
+          <div>
+            <div class="c-t">Internship Completion Certificate</div>
+            <div class="c-d">
+              Formally attesting your successful 6-week completion, issued by
+              SynergyCloudAISolutions.
+            </div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="c-ico">📋</div>
+          <div>
+            <div class="c-t">Experience Letter</div>
+            <div class="c-d">
+              Detailing your role, duration, and key contributions to the
+              enterprise AI system you built.
+            </div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="c-ico">💼</div>
+          <div>
+            <div class="c-t">Portfolio-Ready GitHub Project</div>
+            <div class="c-d">
+              Full codebase, architecture docs and presentation deck — original
+              and employer-impressive.
+            </div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="c-ico">⭐</div>
+          <div>
+            <div class="c-t">Letter of Recommendation</div>
+            <div class="c-d">
+              Issued to high-performing interns. Top performers may also receive
+              job referrals from mentors.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="sec" id="faq">
+      <div class="sec-lbl">FAQs</div>
+      <h2 class="sec-h reveal">Frequently Asked Questions</h2>
+      <div class="faq-list reveal d1">
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faqT(this)">
+            Is the internship paid? <span class="faq-ico">+</span>
+          </button>
+          <div class="faq-ans">
+            Depends on batch selection and performance criteria. Paid status and
+            stipend details are confirmed in your individual offer letter at the
+            time of selection.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faqT(this)">
+            Is prior AI knowledge required? <span class="faq-ico">+</span>
+          </button>
+          <div class="faq-ans">
+            No. Basic programming knowledge in Python or C# is sufficient. AI
+            concepts are introduced progressively. If you can write a function,
+            you can do this.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faqT(this)">
+            What if I miss sessions? <span class="faq-ico">+</span>
+          </button>
+          <div class="faq-ans">
+            Recorded materials and milestone documents are provided so you can
+            stay on track. Full 6-week commitment is expected for completion and
+            certification.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faqT(this)">
+            What industries do you serve? <span class="faq-ico">+</span>
+          </button>
+          <div class="faq-ans">
+            We build enterprise AI solutions for BFSI (Banking, Financial
+            Services &amp; Insurance) and Healthcare — including fraud
+            detection, clinical documentation AI, compliance automation, RAG
+            systems, and more.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faqT(this)">
+            Will there be job assistance? <span class="faq-ico">+</span>
+          </button>
+          <div class="faq-ans">
+            Top-performing candidates may receive referrals or recommendation
+            letters. We focus on building real skills that make you genuinely
+            employable.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta" id="contact">
+      <h2 class="reveal">Ready to Build<br />Something Real?</h2>
+      <p class="reveal d1">
+        Enterprise AI for BFSI &amp; Healthcare, or a place in our internship —
+        we'd love to hear from you.
+      </p>
+      <div class="reveal d2">
+        <a href="mailto:AskHR@SynergyCloudAISolutions.com" class="cta-btn"
+          >Contact Us</a
+        >
+      </div>
+      <div class="chips reveal d3">
+        <a href="mailto:AskHR@SynergyCloudAISolutions.com" class="chip"
+          >✉️&nbsp; AskHR@SynergyCloudAISolutions.com</a
+        >
+        <a href="tel:+919866856453" class="chip">📞&nbsp; +91 9866856453</a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-top">
+        <div>
+          <a href="#" class="logo-box">
+            <svg
+              style="width: 38px; height: 38px; flex-shrink: 0"
+              viewBox="0 0 46 46"
+              fill="none"
+            >
+              <path
+                d="M33 28C37.4 28 41 24.4 41 20C41 15.6 37.4 12 33 12C32.4 12 31.8 12.1 31.2 12.3C30 9.1 27 7 23.5 7C18.5 7 14.5 11 14.5 16C14.5 16.2 14.5 16.4 14.6 16.6C11.8 17.3 10 19.9 10 22.9C10 26.3 12.7 29 16.1 29L33 29Z"
+                fill="none"
+                stroke="#00b4d8"
+                stroke-width="2.2"
+                stroke-linejoin="round"
+              />
+              <circle cx="19" cy="19" r="1.8" fill="#8a7060" />
+              <path
+                d="M16.5 29L16.5 24.5C16.5 23.2 17.4 22.5 19 22.5C20.6 22.5 21.5 23.2 21.5 24.5L21.5 29"
+                stroke="#8a7060"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle cx="23.5" cy="17.8" r="2.1" fill="#8a7060" />
+              <path
+                d="M21 29L21 24C21 22.6 22 21.8 23.5 21.8C25 21.8 26 22.6 26 24L26 29"
+                stroke="#8a7060"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle cx="28" cy="19" r="1.8" fill="#8a7060" />
+              <path
+                d="M25.5 29L25.5 24.5C25.5 23.2 26.4 22.5 28 22.5C29.6 22.5 30.5 23.2 30.5 24.5L30.5 29"
+                stroke="#8a7060"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="logo-text">
+              <span class="logo-name">Synergy <span>Cloud</span></span
+              ><span class="logo-sub">AI Solutions</span>
+            </div>
+          </a>
+          <p class="foot-tag">
+            Enterprise AI for BFSI, Healthcare &amp; beyond — built in
+            Hyderabad, deployed across industries.
+          </p>
+        </div>
+        <div class="foot-col">
+          <h4>Solutions</h4>
+          <a href="#solutions">BFSI AI</a><a href="#solutions">Healthcare AI</a
+          ><a href="#solutions">Enterprise AI</a
+          ><a href="#solutions">Cloud-Native</a>
+        </div>
+        <div class="foot-col">
+          <h4>Internship</h4>
+          <a href="#internship">About Program</a
+          ><a href="#curriculum">Curriculum</a
+          ><a href="#internship">Apply Now</a><a href="#faq">FAQs</a>
+        </div>
+        <div class="foot-col">
+          <h4>Connect</h4>
+          <a href="mailto:AskHR@SynergyCloudAISolutions.com">Email Us</a
+          ><a href="tel:+919866856453">+91 9866856453</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <span
+          >202, Sarah Enclave, Gayatri Nagar, Madhapur, Hyderabad — 500018</span
+        >
+        <span>© 2025 SynergyCloudAISolutions. All rights reserved.</span>
+      </div>
+    </footer>
+
+    <script>
+      /* ══════════════════════════════════════════════
+   SLIDE + TYPING — fully synced
+   Flow per slide:
+     1. Headline fades in instantly (innerHTML swap)
+     2. Sub-phrase types in  (TYPE_SPEED ms/char)
+     3. Pause at end          (READ_PAUSE ms)
+     4. Sub-phrase erases     (DEL_SPEED ms/char)
+     5. Background transitions to next slide
+     6. Repeat
+══════════════════════════════════════════════ */
+      const TYPE_SPEED = 65; // ms per character while typing
+      const DEL_SPEED = 32; // ms per character while deleting
+      const READ_PAUSE = 2400; // ms to hold before deleting
+
+      const SLIDES = [
+        {
+          headline: "Building Intelligence<br>on Solid Ground",
+          phrase: "AI for BFSI & Healthcare.",
+        },
+        {
+          headline: "Enterprise AI for<br>BFSI &amp; Healthcare",
+          phrase: "Production-grade. Not tutorial-grade.",
+        },
+        {
+          headline: "6-Week Internship.<br>Real Production AI.",
+          phrase: "6 Weeks. 9 Deliverables. 1 Real Project.",
+        },
+      ];
+
+      let cur = 0,
+        paused = false;
+
+      const sls = document.querySelectorAll(".slide");
+      const dts = document.querySelectorAll(".dot");
+      const typedEl = document.getElementById("typed");
+      const headlineEl = document.getElementById("heroHeadline");
+
+      /* ── Go to slide n immediately (for manual dot/swipe clicks) ── */
+      function goSlide(n) {
+        sls[cur].classList.remove("active");
+        dts[cur].classList.remove("active");
+        cur = n;
+        sls[cur].classList.add("active");
+        dts[cur].classList.add("active");
+        headlineEl.innerHTML = SLIDES[cur].headline;
+        // restart typing for this slide
+        typedEl.textContent = "";
+        startTyping();
+      }
+
+      /* ── Transition to next slide — called AFTER erase finishes ── */
+      function advanceSlide() {
+        if (paused) {
+          waitThenAdvance();
+          return;
+        }
+        const next = (cur + 1) % SLIDES.length;
+        sls[cur].classList.remove("active");
+        dts[cur].classList.remove("active");
+        cur = next;
+        sls[cur].classList.add("active");
+        dts[cur].classList.add("active");
+        headlineEl.innerHTML = SLIDES[cur].headline;
+        startTyping();
+      }
+
+      /* ── Main typing engine ── */
+      let typingTimer = null;
+
+      function startTyping() {
+        clearTimeout(typingTimer);
+        typedEl.textContent = "";
+        const phrase = SLIDES[cur].phrase;
+        let ci = 0;
+
+        function typeChar() {
+          if (paused) {
+            typingTimer = setTimeout(typeChar, 200);
+            return;
+          }
+          if (ci < phrase.length) {
+            typedEl.textContent = phrase.substring(0, ci + 1);
+            ci++;
+            typingTimer = setTimeout(typeChar, TYPE_SPEED);
+          } else {
+            // Fully typed — pause then erase
+            typingTimer = setTimeout(eraseChar, READ_PAUSE);
+          }
+        }
+
+        function eraseChar() {
+          if (paused) {
+            typingTimer = setTimeout(eraseChar, 200);
+            return;
+          }
+          const len = typedEl.textContent.length;
+          if (len > 0) {
+            typedEl.textContent = typedEl.textContent.substring(0, len - 1);
+            typingTimer = setTimeout(eraseChar, DEL_SPEED);
+          } else {
+            // Fully erased — now change the background
+            typingTimer = setTimeout(advanceSlide, 300);
+          }
+        }
+
+        typeChar();
+      }
+
+      /* ── Pause / Play ── */
+      function togglePause() {
+        paused = !paused;
+        const ic = document.getElementById("picon");
+        if (paused) {
+          ic.innerHTML =
+            '<div style="width:0;height:0;border-style:solid;border-width:6px 0 6px 12px;border-color:transparent transparent transparent #fff;margin-left:2px"></div>';
+        } else {
+          ic.innerHTML = '<div class="pb"></div><div class="pb"></div>';
+        }
+      }
+
+      /* ── Touch swipe ── */
+      let tx = 0;
+      const sliderEl = document.getElementById("slider");
+      sliderEl.addEventListener(
+        "touchstart",
+        (e) => {
+          tx = e.changedTouches[0].screenX;
+        },
+        { passive: true },
+      );
+      sliderEl.addEventListener(
+        "touchend",
+        (e) => {
+          const d = e.changedTouches[0].screenX - tx;
+          if (Math.abs(d) > 48) goSlide(d < 0 ? (cur + 1) % 3 : (cur + 2) % 3);
+        },
+        { passive: true },
+      );
+
+      /* ── Start ── */
+      headlineEl.innerHTML = SLIDES[0].headline;
+      startTyping();
+
+      /* ══ PARTICLES ══ */
+      const pc = document.getElementById("ptc");
+      for (let i = 0; i < 38; i++) {
+        const p = document.createElement("div");
+        p.className = "pt";
+        const s = 1 + Math.random() * 2;
+        p.style.cssText = `left:${Math.random() * 100}%;bottom:${Math.random() * 50}%;width:${s}px;height:${s}px;opacity:${0.28 + Math.random() * 0.52};animation-duration:${7 + Math.random() * 13}s;animation-delay:${Math.random() * 16}s;--px:${(Math.random() - 0.4) * 155}px;--py:-${175 + Math.random() * 335}px`;
+        pc.appendChild(p);
+      }
+
+      /* ══ HAMBURGER ══ */
+      let mo = false;
+      function toggleMenu() {
+        mo = !mo;
+        document.getElementById("ham").classList.toggle("open", mo);
+        document.getElementById("mob").classList.toggle("open", mo);
+        document.body.style.overflow = mo ? "hidden" : "";
+      }
+      function closeMenu() {
+        mo = false;
+        document.getElementById("ham").classList.remove("open");
+        document.getElementById("mob").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document.addEventListener("click", (e) => {
+        if (mo && !e.target.closest("nav") && !e.target.closest(".mob-menu"))
+          closeMenu();
+      });
+
+      /* ══ SCROLL REVEAL ══ */
+      const obs = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("vis");
+          }),
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll(".reveal,.wk").forEach((el) => obs.observe(el));
+
+      /* ══ FAQ ══ */
+      function faqT(btn) {
+        const a = btn.nextElementSibling,
+          open = btn.classList.contains("open");
+        document.querySelectorAll(".faq-btn.open").forEach((b) => {
+          b.classList.remove("open");
+          b.nextElementSibling.classList.remove("open");
+        });
+        if (!open) {
+          btn.classList.add("open");
+          a.classList.add("open");
+        }
+      }
+    </script>
+  </body>
+</html>
