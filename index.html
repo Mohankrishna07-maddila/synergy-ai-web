@@ -233,6 +233,23 @@
       .hero-bg.vid-active {
         opacity: 1;
       }
+      .bg-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        animation: kenBurns 40s infinite alternate linear;
+      }
+      @keyframes kenBurns {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.15);
+        }
+      }
       .full-canvas {
         width: 100%;
         height: 100%;
@@ -241,7 +258,11 @@
         inset: 0;
       }
       .bg-cinematic {
-        background: radial-gradient(circle at 50% 50%, #0a192f 0%, #000408 100%);
+        background: radial-gradient(
+          circle at 50% 50%,
+          #0a192f 0%,
+          #000408 100%
+        );
       }
       .bg-snow {
         background: linear-gradient(180deg, #010a15 0%, #071e3d 100%);
@@ -1067,8 +1088,48 @@
       .white-sec {
         background: #fff !important;
         color: #000 !important;
-        padding: 60px var(--px) !important;
+        padding: 120px var(--px) 80px !important;
         border-top: none !important;
+        scroll-margin-top: var(--nav-h);
+      }
+      .wn-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        margin-top: 50px;
+      }
+      .wn-card {
+        background: #fafafa;
+        border: 1px solid #eaeaea;
+        padding: 30px;
+        border-radius: 4px;
+        transition: all 0.4s ease;
+      }
+      .wn-card:hover {
+        background: #fff;
+        border-color: var(--amber);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        transform: translateY(-5px);
+      }
+      .wn-date {
+        font-size: 10px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .wn-title {
+        font-size: 19px;
+        font-weight: 500;
+        color: #111;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+      .wn-desc {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.7;
       }
       .wn-header {
         display: flex;
@@ -1209,7 +1270,7 @@
           transform: none;
         }
       }
-    
+
       .bg-orb {
         position: fixed;
         border-radius: 50%;
@@ -1219,15 +1280,39 @@
         pointer-events: none;
         animation: floatOrb 25s infinite alternate ease-in-out;
       }
-      .orb1 { width: 600px; height: 600px; background: #00b3d8; top: -100px; left: -200px; }
-      .orb2 { width: 500px; height: 500px; background: #1976d2; bottom: 50px; right: -150px; animation-delay: -5s; }
-      .orb3 { width: 400px; height: 400px; background: #4ba8fe; top: 40%; left: 30%; animation-delay: -12s; }
-      
-      @keyframes floatOrb {
-        0% { transform: translate(0, 0) scale(1); }
-        100% { transform: translate(120px, 80px) scale(1.3); }
+      .orb1 {
+        width: 600px;
+        height: 600px;
+        background: #00b3d8;
+        top: -100px;
+        left: -200px;
       }
-      
+      .orb2 {
+        width: 500px;
+        height: 500px;
+        background: #1976d2;
+        bottom: 50px;
+        right: -150px;
+        animation-delay: -5s;
+      }
+      .orb3 {
+        width: 400px;
+        height: 400px;
+        background: #4ba8fe;
+        top: 40%;
+        left: 30%;
+        animation-delay: -12s;
+      }
+
+      @keyframes floatOrb {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(120px, 80px) scale(1.3);
+        }
+      }
+
       /* Premium 3D Reveal Engine */
       .reveal {
         opacity: 0;
@@ -1240,25 +1325,33 @@
         opacity: 1;
         transform: translateY(0) translateZ(0) rotateX(0);
       }
-      
+
       /* Enhance Existing Elements */
-      html { background: #000205 !important; }
-      .sol-card, .cert-card, .int-cell {
+      html {
+        background: #000205 !important;
+      }
+      .sol-card,
+      .cert-card,
+      .int-cell {
         border-top: 1px solid rgba(137, 198, 255, 0.1) !important;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
-        transform: translateZ(0); 
+        transform: translateZ(0);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
       }
-      .sol-card:hover, .cert-card:hover, .int-cell:hover {
+      .sol-card:hover,
+      .cert-card:hover,
+      .int-cell:hover {
         box-shadow: 0 15px 45px rgba(0, 179, 216, 0.18) !important;
         border-top: 1px solid rgba(0, 179, 216, 0.4) !important;
         transform: translateY(-8px) scale(1.02) !important;
       }
-      .learn-btn, .cta-btn {
+      .learn-btn,
+      .cta-btn {
         box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4) !important;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
       }
-      .learn-btn:hover, .cta-btn:hover {
+      .learn-btn:hover,
+      .cta-btn:hover {
         transform: translateY(-4px) scale(1.06) !important;
         box-shadow: 0 8px 25px rgba(25, 118, 210, 0.65) !important;
       }
@@ -1355,8 +1448,10 @@
     <!-- MOBILE MENU -->
     <div class="mob-menu" id="mob">
       <a href="#solutions" onclick="closeMenu()">Solutions</a>
-      <a href="#internship" onclick="closeMenu()">Internship</a>
-      <a href="#curriculum" onclick="closeMenu()">Curriculum</a>
+      <a href="#internship" onclick="closeMenu()">Who we are</a>
+      <a href="#curriculum" onclick="closeMenu()">Insights</a>
+      <a href="#news" onclick="closeMenu()">Newsroom</a>
+      <a href="#investors" onclick="closeMenu()">Investors</a>
       <a href="#faq" onclick="closeMenu()">FAQs</a>
       <a href="#contact" onclick="closeMenu()" class="mob-cta">Contact Us</a>
     </div>
@@ -1375,20 +1470,62 @@
       <!-- SLIDE BACKGROUNDS -->
       <!-- Slide 0: Cinematic AI Background -->
       <div id="bg-slide0" class="hero-bg bg-cinematic vid-active">
-        <canvas id="rainCanvas" class="full-canvas" style="mix-blend-mode: screen;"></canvas>
+        <div
+          class="bg-img"
+          style="background-image: url(&quot;rain_bg.png&quot;)"
+        ></div>
+        <canvas
+          id="rainCanvas"
+          class="full-canvas"
+          style="mix-blend-mode: screen"
+        ></canvas>
       </div>
 
       <!-- Slide 1: Video Format -->
       <div id="bg-slide1" class="hero-bg">
-        <video id="vidSource1" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover; pointer-events:none;">
-          <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4b/Ocean_Waves_in_Slow_Motion.webm/Ocean_Waves_in_Slow_Motion.webm.1080p.vp9.webm" type="video/webm" />
+        <div
+          class="bg-img"
+          style="background-image: url(&quot;storm_bg.png&quot;)"
+        ></div>
+        <video
+          id="vidSource1"
+          autoplay
+          loop
+          muted
+          playsinline
+          style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+          "
+        >
+          <source
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4b/Ocean_Waves_in_Slow_Motion.webm/Ocean_Waves_in_Slow_Motion.webm.1080p.vp9.webm"
+            type="video/webm"
+          />
         </video>
-        <canvas id="thunderCanvas" class="full-canvas" style="mix-blend-mode: screen; pointer-events:none; z-index: 3;"></canvas>
+        <canvas
+          id="thunderCanvas"
+          class="full-canvas"
+          style="mix-blend-mode: screen; pointer-events: none; z-index: 3"
+        ></canvas>
       </div>
 
       <!-- Slide 2: Cinematic Snow Effect -->
       <div id="bg-slide2" class="hero-bg bg-snow">
-        <canvas id="snowCanvas" class="full-canvas" style="mix-blend-mode: screen;"></canvas>
+        <div
+          class="bg-img"
+          style="background-image: url(&quot;snow_bg.png&quot;)"
+        ></div>
+        <canvas
+          id="snowCanvas"
+          class="full-canvas"
+          style="mix-blend-mode: screen"
+        ></canvas>
       </div>
 
       <!-- Dark overlay so text is always readable -->
@@ -1434,10 +1571,53 @@
     <!-- WHAT'S NEW -->
     <div class="sec white-sec" id="whats-new">
       <div class="wn-header">
-        <h2>Good Evening. Here's what's new</h2>
+        <h2>
+          <span id="dynamic-greeting">Hello</span>. Here's what's new
+        </h2>
+        <script>
+          (function() {
+            function updateGreeting() {
+              const gre = document.getElementById("dynamic-greeting");
+              if (!gre) return;
+              const hr = new Date().getHours();
+              if (hr >= 5 && hr < 12) gre.textContent = "Good Morning";
+              else if (hr >= 12 && hr < 18) gre.textContent = "Good Afternoon";
+              else gre.textContent = "Good Evening";
+              console.log("Greeting updated to:", gre.textContent, "at hr:", hr);
+            }
+            updateGreeting();
+            setInterval(updateGreeting, 60000);
+          })();
+        </script>
         <div class="wn-arrows">
-          <button class="arr-btn">←</button>
-          <button class="arr-btn">→</button>
+          <button class="arr-btn" onclick="scrollWN(-1)">←</button>
+          <button class="arr-btn" onclick="scrollWN(1)">→</button>
+        </div>
+      </div>
+      <div class="wn-grid" id="wn-grid">
+        <div class="wn-card">
+          <span class="wn-date">March 23, 2026</span>
+          <div class="wn-title">Enterprise RAG Systems v2.0 Released</div>
+          <div class="wn-desc">
+            Our latest update brings 40% faster document processing and improved
+            hallucination controls for BFSI clients.
+          </div>
+        </div>
+        <div class="wn-card">
+          <span class="wn-date">March 15, 2026</span>
+          <div class="wn-title">Summer Internship 2026 Cohort</div>
+          <div class="wn-desc">
+            Applications are now open for our 6-week applied AI internship.
+            Build production-grade systems in Hyderabad.
+          </div>
+        </div>
+        <div class="wn-card">
+          <span class="wn-date">March 08, 2026</span>
+          <div class="wn-title">Healthcare AI Compliance Update</div>
+          <div class="wn-desc">
+            New validation layers added to our Healthcare solutions ensure 100%
+            grounded outputs for clinical records.
+          </div>
         </div>
       </div>
     </div>
@@ -1821,6 +2001,82 @@
       </div>
     </div>
 
+    <!-- NEWSROOM -->
+    <div class="sec" id="news">
+      <div class="sec-lbl">Newsroom</div>
+      <h2 class="sec-h reveal">Latest from Synergy Cloud</h2>
+      <p class="sec-p reveal d1">
+        Stay updated with our latest breakthroughs, partnerships, and corporate announcements.
+      </p>
+      <div class="wn-grid reveal d2">
+        <div class="wn-card">
+          <span class="wn-date">March 24, 2026</span>
+          <div class="wn-title">Synergy Cloud AI Expands to North America</div>
+          <div class="wn-desc">
+            New regional headquarters in New York to serve our growing list of BFSI clients in the US.
+          </div>
+        </div>
+        <div class="wn-card">
+          <span class="wn-date">March 10, 2026</span>
+          <div class="wn-title">Series B Funding Round Closes at $50M</div>
+          <div class="wn-desc">
+            The investment will accelerate our R&D into hallucination-controlled AI for global healthcare.
+          </div>
+        </div>
+        <div class="wn-card">
+          <span class="wn-date">February 28, 2026</span>
+          <div class="wn-title">Partnership with Major Global Bank</div>
+          <div class="wn-desc">
+            Selected as the preferred AI transformation partner for heritage document conversion.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVESTORS -->
+    <div class="sec alt" id="investors">
+      <div class="sec-lbl">Investors</div>
+      <h2 class="sec-h reveal">Corporate Governance &amp; Strategy</h2>
+      <p class="sec-p reveal d1">
+        Building long-term value through transparent growth and ethical AI leadership.
+      </p>
+      <div class="sol-grid reveal d2">
+        <div class="sol-card">
+          <div class="sc-t">Financial Performance</div>
+          <div class="sc-d">
+            Consistent Q-o-Q growth driven by deep industry expertise and production-grade AI delivery.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Audited Financial Results</div>
+            <div class="sc-item">Annual Reports</div>
+            <div class="sc-item">Investor Presentations</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sc-t">Growth Strategy</div>
+          <div class="sc-d">
+            Expanding our footprint in regulated industries with specialized, high-compliance AI solutions.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Vertical Expansion: Pharma</div>
+            <div class="sc-item">Regional Hubs Expansion</div>
+            <div class="sc-item">Strategic IP Acquisition</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sc-t">Shareholder Services</div>
+          <div class="sc-d">
+            Dedicated portal for shareholder requests, proxy voting, and corporate communications.
+          </div>
+          <div class="sc-list">
+            <div class="sc-item">Dividend Information</div>
+            <div class="sc-item">Transfer Agents</div>
+            <div class="sc-item">Contact IR Team</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- FAQ -->
     <div class="sec" id="faq">
       <div class="sec-lbl">FAQs</div>
@@ -1963,6 +2219,8 @@
         </div>
         <div class="foot-col">
           <h4>Connect</h4>
+          <a href="#news">Newsroom</a>
+          <a href="#investors">Investors</a>
           <a href="mailto:AskHR@SynergyCloudAISolutions.com">Email Us</a>
           <a href="tel:+919866856453">+91 9866856453</a>
         </div>
@@ -1980,44 +2238,48 @@
          CINEMATIC RAIN CANVAS (Slide 0)
       ══════════════════════════════════════════════ */
       const rainCvs = document.getElementById("rainCanvas");
-      if(rainCvs) {
+      if (rainCvs) {
         const rCtx = rainCvs.getContext("2d");
-        let rw, rh, drops = [];
-        
+        let rw,
+          rh,
+          drops = [];
+
         function rsRain() {
           rw = rainCvs.width = rainCvs.offsetWidth || window.innerWidth;
-          rh = rainCvs.height = document.getElementById("slider").offsetHeight || window.innerHeight;
+          rh = rainCvs.height =
+            document.getElementById("slider").offsetHeight ||
+            window.innerHeight;
         }
         window.addEventListener("resize", rsRain);
         rsRain();
-        
+
         let dCount = window.innerWidth > 768 ? 400 : 150;
-        for(let i=0; i<dCount; i++) {
+        for (let i = 0; i < dCount; i++) {
           drops.push({
-            x: Math.random() * rw, 
+            x: Math.random() * rw,
             y: Math.random() * rh,
             v: Math.random() * 8 + 12, // velocity
             l: Math.random() * 20 + 10, // length
-            a: Math.random() * 0.4 + 0.1 // alpha
+            a: Math.random() * 0.4 + 0.1, // alpha
           });
         }
-        
+
         function drawRain() {
-          rCtx.clearRect(0,0,rw,rh);
+          rCtx.clearRect(0, 0, rw, rh);
           rCtx.strokeStyle = "rgba(174, 194, 224, 0.5)";
           rCtx.lineWidth = 1;
           rCtx.lineCap = "round";
-          
-          for(let i=0; i<drops.length; i++) {
+
+          for (let i = 0; i < drops.length; i++) {
             let d = drops[i];
             rCtx.globalAlpha = d.a;
             rCtx.beginPath();
             rCtx.moveTo(d.x, d.y);
             rCtx.lineTo(d.x, d.y + d.l);
             rCtx.stroke();
-            
+
             d.y += d.v;
-            if(d.y > rh) {
+            if (d.y > rh) {
               d.y = -d.l;
               d.x = Math.random() * rw;
             }
@@ -2028,80 +2290,97 @@
         drawRain();
       }
 
-      
       /* ══════════════════════════════════════════════
          CINEMATIC THUNDER CANVAS (Slide 1)
       ══════════════════════════════════════════════ */
       const thunderCvs = document.getElementById("thunderCanvas");
-      if(thunderCvs) {
+      if (thunderCvs) {
         const tCtx = thunderCvs.getContext("2d");
         let tw, th;
         function rsThunder() {
           tw = thunderCvs.width = thunderCvs.offsetWidth || window.innerWidth;
-          th = thunderCvs.height = document.getElementById("slider").offsetHeight || window.innerHeight;
+          th = thunderCvs.height =
+            document.getElementById("slider").offsetHeight ||
+            window.innerHeight;
         }
         window.addEventListener("resize", rsThunder);
         rsThunder();
-        
+
         let lightningTimer = 0;
         let flashOpacity = 0;
         let strikes = [];
 
         function generateLightning(sx, sy, tx, ty, branches, alpha) {
-            if (branches <= 0) return;
-            strikes.push({sx, sy, tx, ty, a: alpha, w: branches * 0.9});
-            
-            if (Math.random() < 0.4) {
-                let angle = Math.atan2(ty - sy, tx - sx) + (Math.random() - 0.5) * 1.5;
-                let length = Math.random() * 60 + 20;
-                generateLightning(tx, ty, tx + Math.cos(angle)*length, ty + Math.sin(angle)*length, branches - 0.5, alpha - 0.1);
-            }
-            if (Math.random() < 0.7) {
-                let angle = Math.atan2(ty - sy, tx - sx) + (Math.random() - 0.5) * 0.8;
-                let length = Math.random() * 90 + 40;
-                generateLightning(tx, ty, tx + Math.cos(angle)*length, ty + Math.sin(angle)*length, branches - 0.2, alpha);
-            }
+          if (branches <= 0) return;
+          strikes.push({ sx, sy, tx, ty, a: alpha, w: branches * 0.9 });
+
+          if (Math.random() < 0.4) {
+            let angle =
+              Math.atan2(ty - sy, tx - sx) + (Math.random() - 0.5) * 1.5;
+            let length = Math.random() * 60 + 20;
+            generateLightning(
+              tx,
+              ty,
+              tx + Math.cos(angle) * length,
+              ty + Math.sin(angle) * length,
+              branches - 0.5,
+              alpha - 0.1,
+            );
+          }
+          if (Math.random() < 0.7) {
+            let angle =
+              Math.atan2(ty - sy, tx - sx) + (Math.random() - 0.5) * 0.8;
+            let length = Math.random() * 90 + 40;
+            generateLightning(
+              tx,
+              ty,
+              tx + Math.cos(angle) * length,
+              ty + Math.sin(angle) * length,
+              branches - 0.2,
+              alpha,
+            );
+          }
         }
 
         function createStrike() {
-            let startX = Math.random() * tw;
-            let targetX = startX + (Math.random() - 0.5) * 120;
-            let targetY = Math.random() * 200 + 80;
-            generateLightning(startX, 0, targetX, targetY, 4, 1.0);
-            flashOpacity = 1.0;
+          let startX = Math.random() * tw;
+          let targetX = startX + (Math.random() - 0.5) * 120;
+          let targetY = Math.random() * 200 + 80;
+          generateLightning(startX, 0, targetX, targetY, 4, 1.0);
+          flashOpacity = 1.0;
         }
 
         function drawThunder() {
-          tCtx.clearRect(0,0,tw,th);
-          
+          tCtx.clearRect(0, 0, tw, th);
+
           if (flashOpacity > 0) {
-              tCtx.fillStyle = `rgba(220, 235, 255, ${flashOpacity * 0.35})`; 
-              tCtx.fillRect(0,0,tw,th);
-              
-              tCtx.shadowBlur = 15;
-              tCtx.shadowColor = "#ffffff";
-              for(let s of strikes) {
-                  tCtx.beginPath();
-                  tCtx.moveTo(s.sx, s.sy);
-                  tCtx.lineTo(s.tx, s.ty);
-                  tCtx.strokeStyle = `rgba(230, 245, 255, ${s.a * flashOpacity})`;
-                  tCtx.lineWidth = s.w;
-                  tCtx.stroke();
-              }
-              tCtx.shadowBlur = 0;
-              flashOpacity -= 0.05;
+            tCtx.fillStyle = `rgba(220, 235, 255, ${flashOpacity * 0.35})`;
+            tCtx.fillRect(0, 0, tw, th);
+
+            tCtx.shadowBlur = 15;
+            tCtx.shadowColor = "#ffffff";
+            for (let s of strikes) {
+              tCtx.beginPath();
+              tCtx.moveTo(s.sx, s.sy);
+              tCtx.lineTo(s.tx, s.ty);
+              tCtx.strokeStyle = `rgba(230, 245, 255, ${s.a * flashOpacity})`;
+              tCtx.lineWidth = s.w;
+              tCtx.stroke();
+            }
+            tCtx.shadowBlur = 0;
+            flashOpacity -= 0.05;
           } else {
-              strikes = []; // clear geometry when flash dies
+            strikes = []; // clear geometry when flash dies
           }
-          
+
           lightningTimer--;
           if (lightningTimer <= 0) {
-              if (Math.random() < 0.06) { 
-                  createStrike();
-                  if (Math.random() < 0.4) setTimeout(createStrike, 80);
-                  if (Math.random() < 0.2) setTimeout(createStrike, 250);
-              }
-              if (Math.random() < 0.02) lightningTimer = Math.random() * 250 + 80; 
+            if (Math.random() < 0.06) {
+              createStrike();
+              if (Math.random() < 0.4) setTimeout(createStrike, 80);
+              if (Math.random() < 0.2) setTimeout(createStrike, 250);
+            }
+            if (Math.random() < 0.02) lightningTimer = Math.random() * 250 + 80;
           }
           requestAnimationFrame(drawThunder);
         }
@@ -2112,49 +2391,53 @@
          CINEMATIC SNOW CANVAS (Slide 2)
       ══════════════════════════════════════════════ */
       const snowCvs = document.getElementById("snowCanvas");
-      if(snowCvs) {
+      if (snowCvs) {
         const sCtx = snowCvs.getContext("2d");
-        let sw, sh, flakes = [];
+        let sw,
+          sh,
+          flakes = [];
         let angle = 0;
-        
+
         function rsSnow() {
           sw = snowCvs.width = snowCvs.offsetWidth || window.innerWidth;
-          sh = snowCvs.height = document.getElementById("slider").offsetHeight || window.innerHeight;
+          sh = snowCvs.height =
+            document.getElementById("slider").offsetHeight ||
+            window.innerHeight;
         }
         window.addEventListener("resize", rsSnow);
         rsSnow();
-        
+
         let sCount = window.innerWidth > 768 ? 200 : 80;
-        for(let i=0; i<sCount; i++) {
+        for (let i = 0; i < sCount; i++) {
           flakes.push({
-            x: Math.random() * sw, 
+            x: Math.random() * sw,
             y: Math.random() * sh,
             r: Math.random() * 2.5 + 0.5,
             d: Math.random() * 1.5 + 0.5,
-            a: Math.random() * 0.7 + 0.3
+            a: Math.random() * 0.7 + 0.3,
           });
         }
-        
+
         function drawSnow() {
-          sCtx.clearRect(0,0,sw,sh);
+          sCtx.clearRect(0, 0, sw, sh);
           sCtx.fillStyle = "#ffffff";
           angle += 0.01;
-          
-          for(let i=0; i<flakes.length; i++) {
+
+          for (let i = 0; i < flakes.length; i++) {
             let f = flakes[i];
             f.y += Math.pow(f.d, 2) + 0.5;
             f.x += Math.sin(angle + f.d) * 1.5;
-            
-            if(f.y > sh + 5) {
+
+            if (f.y > sh + 5) {
               flakes[i].y = -5;
               flakes[i].x = Math.random() * sw;
             }
-            if(f.x > sw + 5) flakes[i].x = -5;
-            if(f.x < -5) flakes[i].x = sw + 5;
-            
+            if (f.x > sw + 5) flakes[i].x = -5;
+            if (f.x < -5) flakes[i].x = sw + 5;
+
             sCtx.globalAlpha = f.a;
             sCtx.beginPath();
-            sCtx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+            sCtx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
             sCtx.fill();
           }
           sCtx.globalAlpha = 1;
@@ -2168,19 +2451,25 @@
         const bgs = [
           document.getElementById("bg-slide0"),
           document.getElementById("bg-slide1"),
-          document.getElementById("bg-slide2")
+          document.getElementById("bg-slide2"),
         ];
-        
+
         if (bgs[from]) bgs[from].classList.remove("vid-active");
-        
+
         const vid = document.getElementById("vidSource1");
         if (from === 1 && vid) vid.pause();
-        
+
         if (bgs[to]) bgs[to].classList.add("vid-active");
-        
+
         if (to === 1 && vid) {
-          try { if(vid.readyState >= 1) vid.currentTime = 0; } catch(e){ console.log("Video not ready to seek"); }
-          vid.play().catch(e => { console.log(e); });
+          try {
+            if (vid.readyState >= 1) vid.currentTime = 0;
+          } catch (e) {
+            console.log("Video not ready to seek");
+          }
+          vid.play().catch((e) => {
+            console.log(e);
+          });
         }
       }
 
@@ -2193,17 +2482,15 @@
 
       const SLIDES = [
         {
-          headline: 'BUILDING INTELLIGENCE<br>ON SOLID GROUND',
+          headline: "BUILDING INTELLIGENCE<br>ON SOLID GROUND",
           phrase: "AI Solutions for BFSI & Healthcare.",
         },
         {
-          headline:
-            'ENTERPRISE AI ARCHITECTURE<br>AT SCALE',
+          headline: "ENTERPRISE AI ARCHITECTURE<br>AT SCALE",
           phrase: "Production-grade. Not tutorial-grade.",
         },
         {
-          headline:
-            '6-WEEK APPLIED AI<br>INTERNSHIP',
+          headline: "6-WEEK APPLIED AI<br>INTERNSHIP",
           phrase: "6 Weeks. 9 Deliverables. 1 Real Project.",
         },
       ];
@@ -2287,7 +2574,7 @@
           if (cur === 1 && vid) vid.pause();
         } else {
           ic.innerHTML = '<div class="pb"></div><div class="pb"></div>';
-          if (cur === 1 && vid) vid.play().catch(e => {});
+          if (cur === 1 && vid) vid.play().catch((e) => {});
         }
       }
 
@@ -2355,6 +2642,14 @@
           btn.classList.add("open");
           a.classList.add("open");
         }
+      }
+      /* ══ DYNAMIC GREETING ══ */
+      /* ══ WHAT'S NEW SCROLL ══ */
+      function scrollWN(dir) {
+        const grid = document.getElementById("wn-grid");
+        if (!grid) return;
+        const scrollAmount = grid.clientWidth > 600 ? 400 : 300;
+        grid.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
       }
     </script>
   </body>

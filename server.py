@@ -7,7 +7,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         # Serve web.html when someone visits the root URL (/)
         if self.path == '/':
-            self.path = '/web.html'
+            self.path = '/index.html'
         return super().do_GET()
 
 try:
